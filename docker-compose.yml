@@ -1,0 +1,7 @@
+services:
+  auth-api:
+    build:
+      context: ./
+    container_name: auth-api 
+    ports:
+      - 8080:8080
