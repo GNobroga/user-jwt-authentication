@@ -34,7 +34,7 @@ Account tem suporte aos verbos **GET**, **DELETE**, **PUT**, **POST**. Os endpoi
 **/auth/token** - Permite utilizar o POST sem autenticação.
 **/h2-console** - Permissão total.
 
-Para utilizar o verbo **GET**, o usuário autenticado precisa ter a role **COMMON** e **ADMIN** para qualquer outra rota que exija autenticação.
+Para utilizar o verbo **GET**, o usuário autenticado precisa ter a role **COMMON**. E **ADMIN** para qualquer outra rota que exija autenticação.
 
 #### /account (GET)
 
