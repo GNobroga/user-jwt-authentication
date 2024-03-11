@@ -66,8 +66,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 logger.info("The header has been validated");
                 var token = extractToken(authorization);
 
-                if (!authenticationService.isNonExpired(token)) {
-                    handleResponse(response, HttpStatus.UNAUTHORIZED, "Token expired");
+                if (authenticationService.isRefreshToken(token) || !authenticationService.isNonExpired(token)) {
+                    handleResponse(response, HttpStatus.UNAUTHORIZED, "Token invalid");
                     return;
                 }
 
