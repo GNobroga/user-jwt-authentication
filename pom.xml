@@ -87,7 +87,6 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
-					<mainClass>com.apiauth.Application</mainClass>
 				</configuration>
 			</plugin>
 		</plugins>

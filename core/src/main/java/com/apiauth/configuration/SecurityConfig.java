@@ -1,7 +1,6 @@
 package com.apiauth.configuration;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,9 +29,9 @@ public class SecurityConfig {
     public static final Map<String, List<String>> PERMITTED_ROUTES = new HashMap<>() 
     {
         {
+            put("/h2-console/**", List.of("GET"));
             put("/account/**", List.of("POST"));
             put("/auth/**", List.of("POST"));
-            put("/h2-console/**", List.of());
         }
     };
     
@@ -42,7 +41,9 @@ public class SecurityConfig {
         httpSecurity.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         httpSecurity.authorizeHttpRequests(authorizeHttpRequests -> {
             var allowedRoutes = PERMITTED_ROUTES.keySet().toArray(new String[] {});
-            authorizeHttpRequests.requestMatchers(Arrays.copyOfRange(allowedRoutes, 0, 1)).permitAll();
+
+            System.out.println(Arrays.copyOfRange(allowedRoutes, 0, 1)[0]); 
+            authorizeHttpRequests.requestMatchers("/h2-console/**").permitAll();
             authorizeHttpRequests.requestMatchers(HttpMethod.POST, Arrays.copyOfRange(allowedRoutes, 1, allowedRoutes.length)).permitAll();
             authorizeHttpRequests.requestMatchers(HttpMethod.GET).hasAuthority("COMMON");
             authorizeHttpRequests.requestMatchers(HttpMethod.PUT).hasAuthority("ADMIN");

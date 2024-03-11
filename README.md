@@ -25,9 +25,16 @@ Após a construção da imagem, crie e execute um container com base na imagem c
 
 Certifique-se de substituir "minha-tag-aqui" pelo nome desejado para a imagem e ajuste as opções conforme necessário. Este comando cria e executa um container em segundo plano, atribuindo um terminal exclusivo e fazendo o mapeamento das portas do host com as portas expostas pelo container.
 
+
 ## Endpoints
 
-Account tem suporte aos verbos **GET**, **DELETE**, **PUT**, **POST**.
+Account tem suporte aos verbos **GET**, **DELETE**, **PUT**, **POST**. Os endpoints: 
+
+**/account** - Permite utilizar o POST sem autenticação.
+**/auth/token** - Permite utilizar o POST sem autenticação.
+**/h2-console** - Permissão total.
+
+Para utilizar o verbo **GET**, o usuário autenticado precisa ter a role **COMMON** e pra fazer atualização **(PUT)** é necessário ter a role **ADMIN**, qualquer outra rota exige autenticação básica sem validação de role.
 
 #### /account (GET)
 
