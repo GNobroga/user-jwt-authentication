@@ -1,38 +1,29 @@
-# UserShield
+# user-shield
 
-É um projeto simples que fiz envolvendo autenticação manual via JWT sem utilizar o Resource Server, apenas com filtro
+É um simples projeto que envolve autenticação via JWT, utilizando filtros e as classes fornecidas pelo Java. Apesar de ser simples, empreguei diversos conceitos interessantes neste projeto, tais como Specification, Example, Criteria, entre outros.
 
 ## Para executar no docker
 
-Clone o projeto e abra o diretório e execute o comando:
+Clone o projeto e navegue até o diretório correspondente.
+Utilize o seguinte comando para executar o projeto com o Docker Compose:
 
 ```bash
     docker-compose up -d
 ```
 
-ou caso não deseje utilizar com o docker compose, faça o build da imagem:
-
-**-t** - Indica o nome da imagem e o : a tag associada a ela.
-
-**-f** - Especifica o nome e o caminho para o arquivo de build.
+Caso prefira não utilizar o Docker Compose, construa a imagem com o seguinte comando:
 
 ```bash
     docker image build  -t minha-tag-aqui:0.1 -f Dockerfile .
 ```
 
-após isso, crie e execute um container baseado na imagem buildada:
-
-**--name** - É o nome do container 
-
-**-dt** - Significa que eu quero que o container execute em background (segundo plano) e tenha uma terminal exclusivo.
-
-**-p** - Faz o binding de portas do host com portas expostas pelo container
+Após a construção da imagem, crie e execute um container com base na imagem criada:
 
 ```bash
     docker container run --name meucontainer -dt -p 8080:8080 minha-tag-aqui:0.1 
 ```
 
-pronto!! A aplicação estará rodando na porta 8080 do host.
+Certifique-se de substituir "minha-tag-aqui" pelo nome desejado para a imagem e ajuste as opções conforme necessário. Este comando cria e executa um container em segundo plano, atribuindo um terminal exclusivo e fazendo o mapeamento das portas do host com as portas expostas pelo container.
 
 ## Endpoints
 
