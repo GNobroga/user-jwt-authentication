@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -36,21 +37,18 @@ public class SecurityConfig {
     };
     
     @Bean
-    SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, IAuthenticationService authenticationService, IUserRepository userRepository) throws Exception {
+    SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, IAuthenticationService authenticationService, IUserRepository userRepository, ModelMapper modelMapper) throws Exception {
         httpSecurity.csrf(csrf -> csrf.disable());  
         httpSecurity.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         httpSecurity.authorizeHttpRequests(authorizeHttpRequests -> {
-            var allowedRoutes = PERMITTED_ROUTES.keySet().toArray(new String[] {});
-
-            System.out.println(Arrays.copyOfRange(allowedRoutes, 0, 1)[0]); 
             authorizeHttpRequests.requestMatchers("/h2-console/**").permitAll();
-            authorizeHttpRequests.requestMatchers(HttpMethod.POST, Arrays.copyOfRange(allowedRoutes, 1, allowedRoutes.length)).permitAll();
+            authorizeHttpRequests.requestMatchers(HttpMethod.POST, "/account/**", "/auth/**").permitAll();
             authorizeHttpRequests.requestMatchers(HttpMethod.GET).hasAuthority("COMMON");
             authorizeHttpRequests.requestMatchers(HttpMethod.PUT).hasAuthority("ADMIN");
             authorizeHttpRequests.anyRequest().authenticated();
         });
         httpSecurity.headers(headers -> headers.frameOptions(options -> options.disable()));
-        httpSecurity.addFilterBefore(new JwtAuthenticationFilter(authenticationService, userRepository), UsernamePasswordAuthenticationFilter.class);
+        httpSecurity.addFilterBefore(new JwtAuthenticationFilter(authenticationService, userRepository, modelMapper), UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
     }
 

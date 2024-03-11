@@ -27,7 +27,7 @@ public class UserService implements IUserService {
 
     private final IUserRepository userRepository;
 
-    private static ModelMapper modelMapper = new ModelMapper();
+    private final ModelMapper modelMapper;
 
     private final PasswordEncoder passwordEncoder;
 

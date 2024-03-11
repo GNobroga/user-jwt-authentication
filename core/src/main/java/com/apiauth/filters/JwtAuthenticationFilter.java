@@ -36,7 +36,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final IUserRepository userRepository;
 
-    private static final ModelMapper modelMapper = new ModelMapper();
+    private final ModelMapper modelMapper;
 
     private static final Logger logger = Logger.getLogger(JwtAuthenticationFilter.class.getName());
 
