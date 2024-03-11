@@ -12,11 +12,21 @@ Clone o projeto e abra o diretório e execute o comando:
 
 ou caso não deseje utilizar com o docker compose, faça o build da imagem:
 
+**-t** - Indica o nome da imagem e o : a tag associada a ela.
+
+**-f** - Especifica o nome e o caminho para o arquivo de build.
+
 ```bash
     docker image build  -t minha-tag-aqui:0.1 -f Dockerfile .
 ```
 
 após isso, crie e execute um container baseado na imagem buildada:
+
+**--name** - É o nome do container 
+
+**-dt** - Significa que eu quero que o container execute em background (segundo plano) e tenha uma terminal exclusivo.
+
+**-p** - Faz o binding de portas do host com portas expostas pelo container
 
 ```bash
     docker container run --name meucontainer -dt -p 8080:8080 minha-tag-aqui:0.1 
