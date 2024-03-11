@@ -44,8 +44,7 @@ public class SecurityConfig {
             authorizeHttpRequests.requestMatchers("/h2-console/**").permitAll();
             authorizeHttpRequests.requestMatchers(HttpMethod.POST, "/account/**", "/auth/**").permitAll();
             authorizeHttpRequests.requestMatchers(HttpMethod.GET).hasAuthority("COMMON");
-            authorizeHttpRequests.requestMatchers(HttpMethod.PUT).hasAuthority("ADMIN");
-            authorizeHttpRequests.anyRequest().authenticated();
+            authorizeHttpRequests.anyRequest().hasAuthority("ADMIN");
         });
         httpSecurity.headers(headers -> headers.frameOptions(options -> options.disable()));
         httpSecurity.addFilterBefore(new JwtAuthenticationFilter(authenticationService, userRepository, modelMapper), UsernamePasswordAuthenticationFilter.class);
