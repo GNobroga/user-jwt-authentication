@@ -18,23 +18,4 @@
         <maven.compiler.target>17</maven.compiler.target>
         <common.version>1.0-SNAPSHOT</common.version>
     </properties>
-
-    <dependencies>
-        <dependency>
-            <groupId>com.apiauth</groupId>
-            <artifactId>controllers</artifactId>
-            <version>${common.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.apiauth</groupId>
-            <artifactId>entities</artifactId>
-            <version>${common.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.apiauth</groupId>
-            <artifactId>repositories</artifactId>
-            <version>${common.version}</version>
-        </dependency>
-    </dependencies>
-
 </project>

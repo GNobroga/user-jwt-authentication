@@ -12,12 +12,9 @@
 	<artifactId>auth</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
+
 	<modules>
 		<module>core</module>
-		<module>entities</module>
-		<module>controllers</module>
-		<module>services</module>
-		<module>repositories</module>
 	</modules>
 
 	<name>auth</name>

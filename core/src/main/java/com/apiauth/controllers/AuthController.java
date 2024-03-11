@@ -1,4 +1,4 @@
-package com.apiauth;
+package com.apiauth.controllers;
 
 import java.time.Instant;
 import java.util.logging.Logger;

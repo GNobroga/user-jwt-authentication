@@ -1,4 +1,4 @@
-package com.apiauth;
+package com.apiauth.services;
 
 import java.util.ArrayList;
 import java.util.Collection;

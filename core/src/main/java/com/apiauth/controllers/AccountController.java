@@ -1,4 +1,4 @@
-package com.apiauth;
+package com.apiauth.controllers;
 
 import java.util.Collection;
 import java.util.UUID;

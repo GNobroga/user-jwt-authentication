@@ -1,4 +1,4 @@
-package com.apiauth;
+package com.apiauth.services;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
