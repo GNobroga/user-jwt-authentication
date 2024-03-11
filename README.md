@@ -2,7 +2,29 @@
 
 É um projeto simples que fiz envolvendo autenticação manual via JWT sem utilizar o Resource Server, apenas com filtro
 
-## Endepoints
+## Para executar no docker
+
+Clone o projeto e abra o diretório e execute o comando:
+
+```bash
+    docker-compose up -d
+```
+
+ou caso não deseje utilizar com o docker compose, faça o build da imagem:
+
+```bash
+    docker image build  -t minha-tag-aqui:0.1 -f Dockerfile .
+```
+
+após isso, crie e execute um container baseado na imagem buildada:
+
+```bash
+    docker container run --name meucontainer -dt -p 8080:8080 minha-tag-aqui:0.1 
+```
+
+pronto!! A aplicação estará rodando na porta 8080 do host.
+
+## Endpoints
 
 Account tem suporte aos verbos **GET**, **DELETE**, **PUT**, **POST**.
 
