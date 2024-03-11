@@ -1,5 +1,11 @@
 package com.apiauth.configuration;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -20,14 +26,24 @@ import com.apiauth.interfaces.IAuthenticationService;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    public static final Map<String, List<String>> PERMITTED_ROUTES = new HashMap<>() 
+    {
+        {
+            put("/account/**", List.of("POST"));
+            put("/auth/**", List.of("POST"));
+            put("/h2-console/**", List.of());
+        }
+    };
     
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity, IAuthenticationService authenticationService, IUserRepository userRepository) throws Exception {
         httpSecurity.csrf(csrf -> csrf.disable());  
         httpSecurity.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         httpSecurity.authorizeHttpRequests(authorizeHttpRequests -> {
-            authorizeHttpRequests.requestMatchers("/h2-console/**").permitAll();
-            authorizeHttpRequests.requestMatchers(HttpMethod.POST, "/account/**", "/auth/**").permitAll();
+            var allowedRoutes = PERMITTED_ROUTES.keySet().toArray(new String[] {});
+            authorizeHttpRequests.requestMatchers(Arrays.copyOfRange(allowedRoutes, 0, 1)).permitAll();
+            authorizeHttpRequests.requestMatchers(HttpMethod.POST, Arrays.copyOfRange(allowedRoutes, 1, allowedRoutes.length)).permitAll();
             authorizeHttpRequests.requestMatchers(HttpMethod.GET).hasAuthority("COMMON");
             authorizeHttpRequests.requestMatchers(HttpMethod.PUT).hasAuthority("ADMIN");
             authorizeHttpRequests.anyRequest().authenticated();

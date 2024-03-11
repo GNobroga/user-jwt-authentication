@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -31,11 +32,15 @@ public class ApplicationUser implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if (Objects.isNull(roles)) 
-            return new ArrayList<>();
+        return Optional.ofNullable(roles) 
+            .map(ApplicationUser::mapToAuthorities)
+            .orElse(new ArrayList<>());
+    }
+
+    private static List<GrantedAuthority> mapToAuthorities(List<String> roles) {
         return roles.stream()
-            .map(role -> new SimpleGrantedAuthority(role))
-            .collect(Collectors.toList());
+        .map(role -> new SimpleGrantedAuthority(role))
+        .collect(Collectors.toList());
     }
 
     @Override

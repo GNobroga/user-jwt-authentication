@@ -2,7 +2,9 @@ package com.apiauth.filters;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
@@ -26,6 +28,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import static com.apiauth.configuration.SecurityConfig.PERMITTED_ROUTES;
 
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -38,10 +41,25 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private static final Logger logger = Logger.getLogger(JwtAuthenticationFilter.class.getName());
 
-
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+           var isPermittedRoute = PERMITTED_ROUTES.entrySet().stream().anyMatch(entry -> {
+                String route = entry.getKey().replace("/**", "");
+                List<String> allowedMethods = entry.getValue();
+
+                boolean pathsMatch = request.getServletPath().startsWith(route);
+
+                boolean methodMatches = allowedMethods.stream().anyMatch(method -> request.getMethod().equals(method));
+
+                return pathsMatch && methodMatches;
+            }); 
+
+        if (isPermittedRoute) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+    
         var authorization = request.getHeader("Authorization");
 
         try {

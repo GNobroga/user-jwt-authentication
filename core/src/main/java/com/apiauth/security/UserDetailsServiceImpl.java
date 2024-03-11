@@ -23,9 +23,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
        return userRepository
-        .findByUsername(username)
-        .map(UserDetailsServiceImpl::mapToApplicationUser)
-        .orElseThrow(UserNotFoundException::new);
+            .findByUsername(username)
+            .map(UserDetailsServiceImpl::mapToApplicationUser)
+            .orElseThrow(UserNotFoundException::new);
     }
 
     private static ApplicationUser mapToApplicationUser(User user) {
